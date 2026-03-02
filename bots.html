@@ -23,6 +23,7 @@
             color: white;
             font-family: 'Rajdhani', sans-serif;
             background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #020202 100%);
+            background-attachment: fixed;
         }
 
         /* --- NAVIGATION --- */
@@ -36,54 +37,75 @@
         .logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.5rem; }
         .logo span { color: var(--robotic-red); }
 
-        .menu-btn { font-size: 1.8rem; color: var(--neon-green); cursor: pointer; }
+        .menu-btn { font-size: 1.8rem; color: var(--neon-green); cursor: pointer; transition: 0.3s; }
+        .menu-btn:hover { text-shadow: 0 0 15px var(--neon-green); }
 
-        /* --- SIDE MENU (FULL VERSION) --- */
+        /* --- SIDE MENU --- */
         .side-menu {
             position: fixed; top: 0; right: -100%; width: 300px; height: 100vh;
-            background: rgba(0,0,0,0.95); border-left: 2px solid var(--neon-green);
-            padding: 80px 30px; transition: 0.5s; z-index: 1100;
+            background: rgba(0,0,0,0.98); border-left: 2px solid var(--neon-green);
+            padding: 80px 30px; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1100;
         }
         .side-menu.active { right: 0; }
         .side-menu a {
             display: block; color: white; text-decoration: none; font-family: 'Orbitron';
             font-size: 1.2rem; margin: 20px 0; border-bottom: 1px solid #222; padding-bottom: 10px;
+            transition: 0.3s;
         }
+        .side-menu a:hover { color: var(--neon-green); padding-left: 10px; }
         .close-menu { position: absolute; top: 20px; left: 20px; font-size: 2rem; color: var(--robotic-red); cursor: pointer; }
 
         /* --- HUB CONTENT --- */
         .container { padding: 120px 5% 50px; }
-        .section-title { font-family: 'Orbitron'; color: var(--neon-green); margin: 40px 0 20px; text-transform: uppercase; border-left: 4px solid var(--robotic-red); padding-left: 15px; }
+        .section-title { 
+            font-family: 'Orbitron'; color: var(--neon-green); margin: 60px 0 30px; 
+            text-transform: uppercase; border-left: 4px solid var(--robotic-red); 
+            padding-left: 15px; letter-spacing: 3px; font-size: 1.5rem;
+        }
 
         /* --- CARDS GRID --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         
         .card {
             background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
-            padding: 25px; position: relative; transition: 0.3s;
-            backdrop-filter: blur(10px);
+            padding: 30px; position: relative; transition: 0.4s;
+            backdrop-filter: blur(10px); display: flex; flex-direction: column;
         }
-        .card:hover { border-color: var(--cyber-blue); transform: scale(1.03); }
+        .card:hover { 
+            border-color: var(--neon-green); transform: translateY(-10px); 
+            box-shadow: 0 10px 30px rgba(57, 255, 20, 0.1);
+        }
 
-        .badge { position: absolute; top: 10px; right: 10px; font-size: 10px; padding: 2px 8px; font-family: 'Orbitron'; }
+        .badge { position: absolute; top: 15px; right: 15px; font-size: 9px; padding: 3px 10px; font-family: 'Orbitron'; font-weight: bold; }
         .badge.free { background: var(--neon-green); color: black; }
         .badge.paid { background: var(--gold); color: black; }
         .badge.ai { background: var(--cyber-blue); color: black; }
 
-        .card i { font-size: 2.5rem; margin-bottom: 15px; display: block; }
-        .card h3 { font-family: 'Orbitron'; font-size: 1.1rem; margin-bottom: 8px; }
-        .card p { font-size: 0.85rem; color: #bbb; margin-bottom: 15px; }
+        .card i { font-size: 3rem; margin-bottom: 20px; }
+        .card h3 { font-family: 'Orbitron'; font-size: 1.3rem; margin-bottom: 12px; letter-spacing: 1px; }
+        .card p { font-size: 0.9rem; color: #aaa; margin-bottom: 20px; line-height: 1.6; flex-grow: 1; }
+        
+        .capability-tag { font-size: 10px; color: var(--neon-green); font-family: 'Orbitron'; display: block; margin-bottom: 10px; opacity: 0.8; }
 
-        .price { color: var(--gold); font-family: 'Orbitron'; font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        .price { color: var(--gold); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 15px; font-weight: bold; }
 
         .btn {
-            display: block; width: 100%; padding: 10px; text-align: center;
-            font-family: 'Orbitron'; font-size: 0.7rem; text-decoration: none;
-            border: 1px solid white; color: white; transition: 0.3s;
+            display: block; width: 100%; padding: 12px; text-align: center;
+            font-family: 'Orbitron'; font-size: 0.8rem; text-decoration: none;
+            border: 1px solid white; color: white; transition: 0.3s; font-weight: bold;
+            cursor: pointer; background: transparent;
         }
         .btn:hover { background: white; color: black; }
+        .btn-gold { border-color: var(--gold); color: var(--gold); }
+        .btn-gold:hover { background: var(--gold); color: black; }
 
-        .os-info { font-family: 'Orbitron'; font-size: 10px; color: var(--robotic-red); text-align: center; margin-bottom: 20px; }
+        .os-info { 
+            font-family: 'Orbitron'; font-size: 12px; color: var(--robotic-red); 
+            text-align: center; margin-bottom: 40px; background: rgba(255,0,0,0.05);
+            padding: 10px; border: 1px dashed var(--robotic-red);
+        }
+
+        footer { text-align: center; padding: 50px; color: #444; font-family: 'Orbitron'; font-size: 0.8rem; }
 
         @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
     </style>
@@ -105,122 +127,153 @@
     </div>
 
     <div class="container">
-        <div class="os-info" id="os-display">DETECTING_DEVICE_KERNEL...</div>
+        <div class="os-info" id="os-display">INITIALIZING_REMORI_OS...</div>
 
-        <h2 class="section-title">REMORI_CORE_BOTS</h2>
+        <h2 class="section-title">REMORI_CORE_ENTITIES</h2>
         <div class="grid">
             <div class="card">
                 <span class="badge free">FREE</span>
+                <span class="capability-tag">PROTOCOL: PROTECTION_V4</span>
                 <i class="fas fa-shield-halved" style="color: var(--neon-green);"></i>
                 <h3>GROUP_DEFENDER</h3>
-                <p>Bot ya ulinzi wa magroup dhidi ya spam na virusi. Inapatikana kwa kila mtu.</p>
-                <a href="#" class="btn">ACTIVATE</a>
+                <p>Mlinzi wa kijasusi dhidi ya Spam, virusi na mashambulizi ya magroup. Inafanya kazi 24/7 bila kuchoka.</p>
+                <a href="defender.html" class="btn">INITIALIZE_BOT</a>
             </div>
 
             <div class="card">
                 <span class="badge paid">PREMIUM</span>
+                <span class="capability-tag">PROTOCOL: COMMERCE_MASTER</span>
                 <i class="fas fa-cash-register" style="color: var(--gold);"></i>
                 <h3>BUSINESS_PRO</h3>
-                <p>Kumanage mauzo, wateja na inventory ya biashara yako.</p>
+                <p>Simamia biashara yako kiprofeshinali. Inarekodi mauzo, inatunza inventory, na kutoa ripoti za kila siku.</p>
                 <span class="price">TSH 5,000 / MWEZI</span>
-                <a href="#" class="btn" style="border-color: var(--gold); color: var(--gold);">SUBSCRIBE</a>
+                <a href="business.html" class="btn btn-gold">SUBSCRIBE_UPLINK</a>
             </div>
 
             <div class="card">
                 <span class="badge paid">PREMIUM</span>
+                <span class="capability-tag">PROTOCOL: SOCIAL_INTEL</span>
                 <i class="fas fa-heart" style="color: #ff007f;"></i>
                 <h3>MADONNA_ULTRA</h3>
-                <p>Advanced AI companion kwa ajili ya mazungumzo na ushauri binafsi.</p>
+                <p>AI yenye hisia na akili ya hali ya juu kwa ajili ya ushauri wa kijamii, mahusiano na burudani kuntu.</p>
                 <span class="price">TSH 5,000 / MWEZI</span>
-                <a href="#" class="btn" style="border-color: var(--gold); color: var(--gold);">SUBSCRIBE</a>
+                <a href="madonna.html" class="btn btn-gold">SUBSCRIBE_UPLINK</a>
             </div>
 
             <div class="card">
                 <span class="badge paid">PREMIUM</span>
+                <span class="capability-tag">PROTOCOL: CYBER_SECURITY</span>
                 <i class="fas fa-user-shield" style="color: var(--cyber-blue);"></i>
                 <h3>SECURITY_MANAGER</h3>
-                <p>Bot kwa ajili ya ulinzi wa makampuni na ufuatiliaji wa log za wafanyakazi.</p>
+                <p>Mtaalam wa ufuatiliaji wa mifumo ya ofisi na kuzuia uvujaji wa taarifa siri za kampuni yako.</p>
                 <span class="price">TSH 5,000 / MWEZI</span>
-                <a href="#" class="btn" style="border-color: var(--gold); color: var(--gold);">SUBSCRIBE</a>
+                <a href="security.html" class="btn btn-gold">SUBSCRIBE_UPLINK</a>
             </div>
         </div>
 
-        <h2 class="section-title">GLOBAL_AI_SHORTCUTS (DOWNLOAD)</h2>
+        <h2 class="section-title">GLOBAL_NEURAL_NETWORKS</h2>
         <div class="grid">
             <div class="card">
                 <span class="badge ai">AI</span>
+                <span class="capability-tag">MULTIMODAL_CORE</span>
                 <i class="fab fa-google" style="color: #4285F4;"></i>
                 <h3>GOOGLE GEMINI</h3>
-                <p>Bora kwa uchambuzi wa data, picha, na kutengeneza ratiba za kazi.</p>
-                <button class="btn" onclick="smartRedirect('gemini')">GET FOR DEVICE</button>
+                <p>Akili ya Google inayoweza kusoma picha, video na codes. Ni mshauri namba moja kwa wabunifu wa kesho.</p>
+                <button class="btn" onclick="smartRedirect('gemini')">DOWNLOAD_NOW</button>
             </div>
             <div class="card">
                 <span class="badge ai">AI</span>
+                <span class="capability-tag">GPT_4_TURBO</span>
                 <i class="fas fa-robot" style="color: #10a37f;"></i>
-                <h3>CHATGPT (OPENAI)</h3>
-                <p>Mfalme wa maongezi na utunzi wa barua na codes za kiprofeshinali.</p>
-                <button class="btn" onclick="smartRedirect('chatgpt')">GET FOR DEVICE</button>
+                <h3>OPENAI CHATGPT</h3>
+                <p>Mfalme wa maongezi. Anajua kila kitu kuanzia kutunga mashairi hadi kuandika programu tata za kompyuta.</p>
+                <button class="btn" onclick="smartRedirect('chatgpt')">DOWNLOAD_NOW</button>
             </div>
             <div class="card">
                 <span class="badge ai">AI</span>
+                <span class="capability-tag">ETHICAL_REASONING</span>
                 <i class="fas fa-brain" style="color: #d97757;"></i>
                 <h3>CLAUDE AI</h3>
-                <p>Inajulikana kwa kuwa na majibu ya kiutu na uwezo mkubwa wa kusoma PDF.</p>
-                <button class="btn" onclick="smartRedirect('claude')">GET FOR DEVICE</button>
+                <p>AI muungwana zaidi. Ana uwezo mkubwa wa kusoma vitabu vizima na kufanya uchambuzi wa kina bila makosa.</p>
+                <button class="btn" onclick="smartRedirect('claude')">DOWNLOAD_NOW</button>
             </div>
             <div class="card">
                 <span class="badge ai">AI</span>
+                <span class="capability-tag">REAL_TIME_SEARCH</span>
                 <i class="fas fa-search" style="color: #20b2aa;"></i>
                 <h3>PERPLEXITY</h3>
-                <p>Search engine ya AI inayokupa vyanzo (links) vya kila jibu inalotoa.</p>
-                <button class="btn" onclick="smartRedirect('perplexity')">GET FOR DEVICE</button>
+                <p>Usi-google tena, Tumia Perplexity. Inakupa majibu ya uhakika pamoja na vyanzo vyake vyote vya habari.</p>
+                <button class="btn" onclick="smartRedirect('perplexity')">DOWNLOAD_NOW</button>
             </div>
             <div class="card">
                 <span class="badge ai">AI</span>
+                <span class="capability-tag">ART_SYNTHESIS</span>
                 <i class="fas fa-image" style="color: #ff00f3;"></i>
                 <h3>MIDJOURNEY</h3>
-                <p>Bora zaidi duniani kwa kutengeneza picha za kiuhalisia (Art).</p>
-                <button class="btn" onclick="smartRedirect('midjourney')">GET FOR DEVICE</button>
+                <p>Inageuza maneno yako kuwa picha za ajabu. Ni msanii bora wa miaka ya 3000 anayepatikana leo.</p>
+                <button class="btn" onclick="smartRedirect('midjourney')">DOWNLOAD_NOW</button>
             </div>
             <div class="card">
                 <span class="badge ai">AI</span>
-                <i class="fab fa-microsoft" style="color: #00a1f1;"></i>
-                <h3>MS COPILOT</h3>
-                <p>Imewekwa ndani ya Windows na Office (Excel/Word) kukusaidia kazi.</p>
-                <button class="btn" onclick="smartRedirect('copilot')">GET FOR DEVICE</button>
+                <span class="capability-tag">X_REALTIME_DATA</span>
+                <i class="fab fa-x-twitter" style="color: white;"></i>
+                <h3>ELON_MUSK GROK</h3>
+                <p>AI yenye utani na ujasiri. Inachota habari za dunia hivi sasa kupitia mtandao wa X (Twitter).</p>
+                <button class="btn" onclick="smartRedirect('grok')">DOWNLOAD_NOW</button>
             </div>
             <div class="card">
                 <span class="badge ai">AI</span>
+                <span class="capability-tag">EMOTIONAL_INTEL</span>
                 <i class="fas fa-comment-dots" style="color: var(--neon-green);"></i>
-                <h3>PI AI</h3>
-                <p>AI rafiki inayopenda kusikiliza na kukupa ushauri wa maisha.</p>
-                <button class="btn" onclick="smartRedirect('pi')">GET FOR DEVICE</button>
+                <h3>PI_AI</h3>
+                <p>Rafiki wa kweli. Pi AI anapenda kusikiliza shida zako na kukupa ushauri wa maisha kama binadamu.</p>
+                <button class="btn" onclick="smartRedirect('pi')">DOWNLOAD_NOW</button>
             </div>
             <div class="card">
                 <span class="badge ai">AI</span>
-                <i class="fas fa-th" style="color: #8b0000;"></i>
+                <span class="capability-tag">ADVANCED_MATH_LOGIC</span>
+                <i class="fas fa-atom" style="color: #6a5acd;"></i>
+                <h3>DEEPSEEK</h3>
+                <p>Bingwa wa hesabu na mantiki. Inatumika na wanasayansi wakubwa duniani kwa tafiti nzito.</p>
+                <button class="btn" onclick="smartRedirect('deepseek')">DOWNLOAD_NOW</button>
+            </div>
+             <div class="card">
+                <span class="badge ai">AI</span>
+                <span class="capability-tag">HUB_OF_MODELS</span>
+                <i class="fas fa-layer-group" style="color: #8b0000;"></i>
                 <h3>POE (BY QUORA)</h3>
-                <p>Jukwaa linalokupa nafasi ya kutumia AI nyingi sehemu moja.</p>
-                <button class="btn" onclick="smartRedirect('poe')">GET FOR DEVICE</button>
+                <p>Super-App inayokuwezesha kutumia kila aina ya AI duniani ndani ya jukwaa moja tu.</p>
+                <button class="btn" onclick="smartRedirect('poe')">DOWNLOAD_NOW</button>
+            </div>
+            <div class="card">
+                <span class="badge ai">AI</span>
+                <span class="capability-tag">OFFICE_INTEGRATION</span>
+                <i class="fab fa-microsoft" style="color: #00a1f1;"></i>
+                <h3>MS_COPILOT</h3>
+                <p>Inageuza Word, Excel na PowerPoint kuwa rahisi. Ni katibu muhtasi wa kidijitali wa Microsoft.</p>
+                <button class="btn" onclick="smartRedirect('copilot')">DOWNLOAD_NOW</button>
             </div>
         </div>
     </div>
+
+    <footer>
+        <p>REMORI_BOTS SYSTEM © 3026 | ARCHITECT: AGREY TEMU</p>
+    </footer>
 
     <script>
         function toggleMenu() {
             document.getElementById('sideMenu').classList.toggle('active');
         }
 
-        // DETECT OS
         function getOS() {
             const ua = navigator.userAgent;
             if (/android/i.test(ua)) return "ANDROID";
             if (/iPad|iPhone|iPod/.test(ua)) return "IOS";
             return "DESKTOP";
         }
-        document.getElementById('os-display').innerText = "REMORI_LINK: " + getOS() + "_HARDWARE_DETECTED";
+        
+        document.getElementById('os-display').innerText = "REMORI_UPLINK: " + getOS() + "_HARDWARE_IDENTIFIED";
 
-        // SMART REDIRECT
         function smartRedirect(ai) {
             const os = getOS();
             const links = {
@@ -229,12 +282,15 @@
                 claude: { ANDROID: "https://play.google.com/store/apps/details?id=com.anthropic.claude", IOS: "https://apps.apple.com/app/claude/id6473916330", DESKTOP: "https://claude.ai" },
                 perplexity: { ANDROID: "https://play.google.com/store/apps/details?id=ai.perplexity.perplexity", IOS: "https://apps.apple.com/app/perplexity-ask-anything/id1668000334", DESKTOP: "https://www.perplexity.ai" },
                 midjourney: { ANDROID: "https://discord.com/invite/midjourney", IOS: "https://discord.com/invite/midjourney", DESKTOP: "https://www.midjourney.com" },
-                copilot: { ANDROID: "https://play.google.com/store/apps/details?id=com.microsoft.copilot", IOS: "https://apps.apple.com/app/microsoft-copilot/id6472612856", DESKTOP: "https://copilot.microsoft.com" },
+                grok: { ANDROID: "https://x.com/grok", IOS: "https://x.com/grok", DESKTOP: "https://x.com/grok" },
                 pi: { ANDROID: "https://play.google.com/store/apps/details?id=ai.inflection.pi", IOS: "https://apps.apple.com/app/pi-your-personal-ai/id6445815935", DESKTOP: "https://pi.ai" },
-                poe: { ANDROID: "https://play.google.com/store/apps/details?id=com.poe.android", IOS: "https://apps.apple.com/app/poe-fast-helpful-ai-chat/id1640745955", DESKTOP: "https://poe.com" }
+                deepseek: { ANDROID: "https://play.google.com/store/apps/details?id=com.deepseek.chat", IOS: "https://apps.apple.com/app/deepseek/id6473634712", DESKTOP: "https://chat.deepseek.com" },
+                poe: { ANDROID: "https://play.google.com/store/apps/details?id=com.poe.android", IOS: "https://apps.apple.com/app/poe-fast-helpful-ai-chat/id1640745955", DESKTOP: "https://poe.com" },
+                copilot: { ANDROID: "https://play.google.com/store/apps/details?id=com.microsoft.copilot", IOS: "https://apps.apple.com/app/microsoft-copilot/id6472612856", DESKTOP: "https://copilot.microsoft.com" }
             };
 
-            window.open(links[ai][os] || links[ai].DESKTOP, '_blank');
+            const target = links[ai][os] || links[ai].DESKTOP;
+            window.open(target, '_blank');
         }
     </script>
 </body>
