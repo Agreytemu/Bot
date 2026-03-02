@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remori Bots | Neural Hub 3026</title>
+    <title>Remori Bots | Neural Hub 3026 PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -12,8 +12,9 @@
             --neon-green: #39FF14;
             --robotic-red: #FF0000;
             --cyber-blue: #00f3ff;
+            --gold: #ffd700;
             --bg-deep: #020202;
-            --glass: rgba(255, 255, 255, 0.03);
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,214 +23,218 @@
             color: white;
             font-family: 'Rajdhani', sans-serif;
             background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #020202 100%);
-            overflow-x: hidden;
         }
-
-        /* --- UI DECORATION --- */
-        .scanline {
-            width: 100%; height: 2px; background: rgba(57, 255, 20, 0.1);
-            position: fixed; top: 0; z-index: 9999; pointer-events: none;
-            animation: scan 4s linear infinite;
-        }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
 
         /* --- NAVIGATION --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; background: rgba(0,0,0,0.8);
-            border-bottom: 1px solid var(--robotic-red);
-            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
+            padding: 15px 5%; background: rgba(0,0,0,0.9);
+            border-bottom: 2px solid var(--robotic-red);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            backdrop-filter: blur(15px);
         }
-        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 2px; font-size: 1.4rem; }
-        .logo span { color: var(--robotic-red); text-shadow: 0 0 10px var(--robotic-red); }
+        .logo { font-family: 'Orbitron'; font-weight: 900; font-size: 1.5rem; }
+        .logo span { color: var(--robotic-red); }
 
-        .nav-links { display: flex; list-style: none; gap: 20px; }
-        .nav-links a { text-decoration: none; color: #888; font-family: 'Orbitron'; font-size: 0.7rem; transition: 0.3s; }
-        .nav-links a.active { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
+        .menu-btn { font-size: 1.8rem; color: var(--neon-green); cursor: pointer; }
 
-        /* --- MAIN HUB --- */
-        .hub-container { padding: 40px 5%; margin-top: 20px; }
+        /* --- SIDE MENU (FULL VERSION) --- */
+        .side-menu {
+            position: fixed; top: 0; right: -100%; width: 300px; height: 100vh;
+            background: rgba(0,0,0,0.95); border-left: 2px solid var(--neon-green);
+            padding: 80px 30px; transition: 0.5s; z-index: 1100;
+        }
+        .side-menu.active { right: 0; }
+        .side-menu a {
+            display: block; color: white; text-decoration: none; font-family: 'Orbitron';
+            font-size: 1.2rem; margin: 20px 0; border-bottom: 1px solid #222; padding-bottom: 10px;
+        }
+        .close-menu { position: absolute; top: 20px; left: 20px; font-size: 2rem; color: var(--robotic-red); cursor: pointer; }
+
+        /* --- HUB CONTENT --- */
+        .container { padding: 120px 5% 50px; }
+        .section-title { font-family: 'Orbitron'; color: var(--neon-green); margin: 40px 0 20px; text-transform: uppercase; border-left: 4px solid var(--robotic-red); padding-left: 15px; }
+
+        /* --- CARDS GRID --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         
-        .hub-header { text-align: center; margin-bottom: 60px; }
-        .hub-header h1 { font-family: 'Orbitron'; font-size: 3rem; letter-spacing: 10px; color: var(--pure-white); }
-        .os-detector { 
-            display: inline-block; padding: 5px 15px; background: var(--robotic-red); 
-            font-family: 'Orbitron'; font-size: 0.7rem; margin-top: 10px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        .card {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
+            padding: 25px; position: relative; transition: 0.3s;
+            backdrop-filter: blur(10px);
         }
+        .card:hover { border-color: var(--cyber-blue); transform: scale(1.03); }
 
-        /* --- GRID SYSTEM --- */
-        .grid-title { font-family: 'Orbitron'; color: var(--cyber-blue); margin: 40px 0 20px; border-left: 5px solid var(--cyber-blue); padding-left: 15px; }
+        .badge { position: absolute; top: 10px; right: 10px; font-size: 10px; padding: 2px 8px; font-family: 'Orbitron'; }
+        .badge.free { background: var(--neon-green); color: black; }
+        .badge.paid { background: var(--gold); color: black; }
+        .badge.ai { background: var(--cyber-blue); color: black; }
 
-        .bot-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+        .card i { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .card h3 { font-family: 'Orbitron'; font-size: 1.1rem; margin-bottom: 8px; }
+        .card p { font-size: 0.85rem; color: #bbb; margin-bottom: 15px; }
+
+        .price { color: var(--gold); font-family: 'Orbitron'; font-size: 0.9rem; margin-bottom: 10px; display: block; }
+
+        .btn {
+            display: block; width: 100%; padding: 10px; text-align: center;
+            font-family: 'Orbitron'; font-size: 0.7rem; text-decoration: none;
+            border: 1px solid white; color: white; transition: 0.3s;
         }
+        .btn:hover { background: white; color: black; }
 
-        .bot-card {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px;
-            position: relative;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-        }
+        .os-info { font-family: 'Orbitron'; font-size: 10px; color: var(--robotic-red); text-align: center; margin-bottom: 20px; }
 
-        .bot-card:hover {
-            border-color: var(--neon-green);
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 0 30px rgba(57, 255, 20, 0.2);
-        }
-
-        .bot-card i { font-size: 3rem; margin-bottom: 20px; color: var(--neon-green); }
-        .bot-card h3 { font-family: 'Orbitron'; margin-bottom: 10px; color: var(--pure-white); }
-        .bot-card p { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.4; }
-
-        .btn-connect {
-            display: inline-block; width: 100%; padding: 12px;
-            background: transparent; border: 1px solid var(--neon-green);
-            color: var(--neon-green); text-align: center; font-family: 'Orbitron';
-            text-decoration: none; font-size: 0.8rem; transition: 0.3s;
-        }
-        .btn-connect:hover { background: var(--neon-green); color: black; font-weight: bold; }
-
-        /* --- AI DOWNLOAD SECTION --- */
-        .ai-card { border-left: 4px solid var(--cyber-blue); }
-        .ai-capability { font-size: 0.7rem; color: var(--cyber-blue); font-family: 'Orbitron'; margin-bottom: 10px; display: block; }
-
-        /* --- FOOTER --- */
-        footer { padding: 50px; text-align: center; border-top: 1px solid #1a1a1a; margin-top: 100px; }
-
-        @media (max-width: 768px) {
-            .hub-header h1 { font-size: 1.8rem; letter-spacing: 5px; }
-            .nav-links { display: none; }
-        }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <div class="scanline"></div>
-
     <nav>
         <div class="logo">REMORI<span>BOTS</span></div>
-        <ul class="nav-links">
-            <li><a href="index.html">HOME</a></li>
-            <li><a href="bots.html" class="active">NEURAL HUB</a></li>
-            <li><a href="about.html">SYSTEM</a></li>
-            <li><a href="contact.html">UPLINK</a></li>
-        </ul>
-        <div class="os-detector" id="device-info">DETECTING_HARDWARE...</div>
+        <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars-staggered"></i></div>
     </nav>
 
-    <div class="hub-container">
-        
-        <div class="hub-header">
-            <h1>BOT_CENTER</h1>
-            <p style="color: #666;">The global nexus for artificial intelligence and autonomous entities.</p>
-        </div>
-
-        <h2 class="grid-title">REMORI_CORE_ENTITIES</h2>
-        <div class="bot-grid">
-            <div class="bot-card">
-                <i class="fas fa-briefcase"></i>
-                <h3>BUSINESS_MANAGER</h3>
-                <p>Inasimamia mauzo, wateja, na kutoa ripoti za kila siku za biashara yako.</p>
-                <a href="#" class="btn-connect">INITIALIZE_BOT</a>
-            </div>
-            <div class="bot-card">
-                <i class="fas fa-shield-alt"></i>
-                <h3>GROUP_DEFENDER</h3>
-                <p>Ulinzi wa hali ya juu dhidi ya spam, virusi, na watu wasiohitajika kwenye magroup.</p>
-                <a href="#" class="btn-connect">INITIALIZE_BOT</a>
-            </div>
-            <div class="bot-card">
-                <i class="fas fa-female"></i>
-                <h3>MADONNA_AI</h3>
-                <p>Social Bot kwa ajili ya burudani, mazungumzo, na ushauri wa kijamii.</p>
-                <a href="#" class="btn-connect">INITIALIZE_BOT</a>
-            </div>
-            <div class="bot-card">
-                <i class="fas fa-graduation-cap"></i>
-                <h3>EDU_MASTER</h3>
-                <p>Inasaidia kusaka materials, kutoa mitihani, na kufundisha masomo mbalimbali.</p>
-                <a href="#" class="btn-connect">INITIALIZE_BOT</a>
-            </div>
-        </div>
-
-        <h2 class="grid-title">GLOBAL_NEURAL_NETWORKS (AI HUB)</h2>
-        <div class="bot-grid">
-            <div class="bot-card ai-card">
-                <span class="ai-capability">MULTIMODAL_REASONING</span>
-                <i class="fab fa-google" style="color: #4285F4;"></i>
-                <h3>GOOGLE_GEMINI</h3>
-                <p>Inaweza kuchakata picha, video, na maandishi kwa ufasaha wa hali ya juu.</p>
-                <a href="#" onclick="smartDownload('gemini')" class="btn-connect">GET_FOR_YOUR_DEVICE</a>
-            </div>
-            <div class="bot-card ai-card">
-                <span class="ai-capability">NATURAL_LANGUAGE_PRO</span>
-                <i class="fas fa-robot" style="color: #10a37f;"></i>
-                <h3>OPEN_AI_CHATGPT</h3>
-                <p>Mtaalam wa kuandika codes, barua, na kufanya tafiti tata kwa sekunde.</p>
-                <a href="#" onclick="smartDownload('chatgpt')" class="btn-connect">GET_FOR_YOUR_DEVICE</a>
-            </div>
-            <div class="bot-card ai-card">
-                <span class="ai-capability">IMAGE_SYNTHESIS</span>
-                <i class="fas fa-paint-brush" style="color: #ff00f3;"></i>
-                <h3>MS_COPILOT</h3>
-                <p>Inatengeneza picha za kustaajabisha na kusaidia kazi za ofisi (Word/Excel).</p>
-                <a href="#" onclick="smartDownload('copilot')" class="btn-connect">GET_FOR_YOUR_DEVICE</a>
-            </div>
-        </div>
-
+    <div class="side-menu" id="sideMenu">
+        <div class="close-menu" onclick="toggleMenu()">&times;</div>
+        <a href="index.html">HOME</a>
+        <a href="bots.html">NEURAL HUB</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+        <a href="expected.html">EXPECTED</a>
     </div>
 
-    <footer>
-        <p style="color: #444; font-family: 'Orbitron'; font-size: 0.7rem;">REMORI_BOTS © 3026 | ARCHITECT: AGREY TEMU</p>
-    </footer>
+    <div class="container">
+        <div class="os-info" id="os-display">DETECTING_DEVICE_KERNEL...</div>
+
+        <h2 class="section-title">REMORI_CORE_BOTS</h2>
+        <div class="grid">
+            <div class="card">
+                <span class="badge free">FREE</span>
+                <i class="fas fa-shield-halved" style="color: var(--neon-green);"></i>
+                <h3>GROUP_DEFENDER</h3>
+                <p>Bot ya ulinzi wa magroup dhidi ya spam na virusi. Inapatikana kwa kila mtu.</p>
+                <a href="#" class="btn">ACTIVATE</a>
+            </div>
+
+            <div class="card">
+                <span class="badge paid">PREMIUM</span>
+                <i class="fas fa-cash-register" style="color: var(--gold);"></i>
+                <h3>BUSINESS_PRO</h3>
+                <p>Kumanage mauzo, wateja na inventory ya biashara yako.</p>
+                <span class="price">TSH 5,000 / MWEZI</span>
+                <a href="#" class="btn" style="border-color: var(--gold); color: var(--gold);">SUBSCRIBE</a>
+            </div>
+
+            <div class="card">
+                <span class="badge paid">PREMIUM</span>
+                <i class="fas fa-heart" style="color: #ff007f;"></i>
+                <h3>MADONNA_ULTRA</h3>
+                <p>Advanced AI companion kwa ajili ya mazungumzo na ushauri binafsi.</p>
+                <span class="price">TSH 5,000 / MWEZI</span>
+                <a href="#" class="btn" style="border-color: var(--gold); color: var(--gold);">SUBSCRIBE</a>
+            </div>
+
+            <div class="card">
+                <span class="badge paid">PREMIUM</span>
+                <i class="fas fa-user-shield" style="color: var(--cyber-blue);"></i>
+                <h3>SECURITY_MANAGER</h3>
+                <p>Bot kwa ajili ya ulinzi wa makampuni na ufuatiliaji wa log za wafanyakazi.</p>
+                <span class="price">TSH 5,000 / MWEZI</span>
+                <a href="#" class="btn" style="border-color: var(--gold); color: var(--gold);">SUBSCRIBE</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">GLOBAL_AI_SHORTCUTS (DOWNLOAD)</h2>
+        <div class="grid">
+            <div class="card">
+                <span class="badge ai">AI</span>
+                <i class="fab fa-google" style="color: #4285F4;"></i>
+                <h3>GOOGLE GEMINI</h3>
+                <p>Bora kwa uchambuzi wa data, picha, na kutengeneza ratiba za kazi.</p>
+                <button class="btn" onclick="smartRedirect('gemini')">GET FOR DEVICE</button>
+            </div>
+            <div class="card">
+                <span class="badge ai">AI</span>
+                <i class="fas fa-robot" style="color: #10a37f;"></i>
+                <h3>CHATGPT (OPENAI)</h3>
+                <p>Mfalme wa maongezi na utunzi wa barua na codes za kiprofeshinali.</p>
+                <button class="btn" onclick="smartRedirect('chatgpt')">GET FOR DEVICE</button>
+            </div>
+            <div class="card">
+                <span class="badge ai">AI</span>
+                <i class="fas fa-brain" style="color: #d97757;"></i>
+                <h3>CLAUDE AI</h3>
+                <p>Inajulikana kwa kuwa na majibu ya kiutu na uwezo mkubwa wa kusoma PDF.</p>
+                <button class="btn" onclick="smartRedirect('claude')">GET FOR DEVICE</button>
+            </div>
+            <div class="card">
+                <span class="badge ai">AI</span>
+                <i class="fas fa-search" style="color: #20b2aa;"></i>
+                <h3>PERPLEXITY</h3>
+                <p>Search engine ya AI inayokupa vyanzo (links) vya kila jibu inalotoa.</p>
+                <button class="btn" onclick="smartRedirect('perplexity')">GET FOR DEVICE</button>
+            </div>
+            <div class="card">
+                <span class="badge ai">AI</span>
+                <i class="fas fa-image" style="color: #ff00f3;"></i>
+                <h3>MIDJOURNEY</h3>
+                <p>Bora zaidi duniani kwa kutengeneza picha za kiuhalisia (Art).</p>
+                <button class="btn" onclick="smartRedirect('midjourney')">GET FOR DEVICE</button>
+            </div>
+            <div class="card">
+                <span class="badge ai">AI</span>
+                <i class="fab fa-microsoft" style="color: #00a1f1;"></i>
+                <h3>MS COPILOT</h3>
+                <p>Imewekwa ndani ya Windows na Office (Excel/Word) kukusaidia kazi.</p>
+                <button class="btn" onclick="smartRedirect('copilot')">GET FOR DEVICE</button>
+            </div>
+            <div class="card">
+                <span class="badge ai">AI</span>
+                <i class="fas fa-comment-dots" style="color: var(--neon-green);"></i>
+                <h3>PI AI</h3>
+                <p>AI rafiki inayopenda kusikiliza na kukupa ushauri wa maisha.</p>
+                <button class="btn" onclick="smartRedirect('pi')">GET FOR DEVICE</button>
+            </div>
+            <div class="card">
+                <span class="badge ai">AI</span>
+                <i class="fas fa-th" style="color: #8b0000;"></i>
+                <h3>POE (BY QUORA)</h3>
+                <p>Jukwaa linalokupa nafasi ya kutumia AI nyingi sehemu moja.</p>
+                <button class="btn" onclick="smartRedirect('poe')">GET FOR DEVICE</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // 1. SMART DEVICE DETECTOR
-        function detectDevice() {
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            const display = document.getElementById('device-info');
-            
-            if (/windows phone/i.test(userAgent)) return "WINDOWS_PHONE";
-            if (/android/i.test(userAgent)) return "ANDROID_CORE";
-            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return "IOS_APPLE";
-            if (/Macintosh|Windows|Linux/.test(userAgent)) return "DESKTOP_STATION";
-            
-            return "UNKNOWN_HARDWARE";
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('active');
         }
-        document.getElementById('device-info').innerText = detectDevice();
 
-        // 2. SMART DOWNLOAD SYSTEM (3026 Technology)
-        function smartDownload(aiName) {
-            const device = detectDevice();
-            let url = "";
+        // DETECT OS
+        function getOS() {
+            const ua = navigator.userAgent;
+            if (/android/i.test(ua)) return "ANDROID";
+            if (/iPad|iPhone|iPod/.test(ua)) return "IOS";
+            return "DESKTOP";
+        }
+        document.getElementById('os-display').innerText = "REMORI_LINK: " + getOS() + "_HARDWARE_DETECTED";
 
+        // SMART REDIRECT
+        function smartRedirect(ai) {
+            const os = getOS();
             const links = {
-                gemini: {
-                    ANDROID_CORE: "https://play.google.com/store/apps/details?id=com.google.android.apps.bard",
-                    IOS_APPLE: "https://apps.apple.com/app/google/id284815942",
-                    DESKTOP_STATION: "https://gemini.google.com"
-                },
-                chatgpt: {
-                    ANDROID_CORE: "https://play.google.com/store/apps/details?id=com.openai.chatgpt",
-                    IOS_APPLE: "https://apps.apple.com/app/chatgpt/id6448311069",
-                    DESKTOP_STATION: "https://chat.openai.com"
-                },
-                copilot: {
-                    ANDROID_CORE: "https://play.google.com/store/apps/details?id=com.microsoft.copilot",
-                    IOS_APPLE: "https://apps.apple.com/app/microsoft-copilot/id6472612856",
-                    DESKTOP_STATION: "https://copilot.microsoft.com"
-                }
+                gemini: { ANDROID: "https://play.google.com/store/apps/details?id=com.google.android.apps.bard", IOS: "https://apps.apple.com/app/google/id284815942", DESKTOP: "https://gemini.google.com" },
+                chatgpt: { ANDROID: "https://play.google.com/store/apps/details?id=com.openai.chatgpt", IOS: "https://apps.apple.com/app/chatgpt/id6448311069", DESKTOP: "https://chat.openai.com" },
+                claude: { ANDROID: "https://play.google.com/store/apps/details?id=com.anthropic.claude", IOS: "https://apps.apple.com/app/claude/id6473916330", DESKTOP: "https://claude.ai" },
+                perplexity: { ANDROID: "https://play.google.com/store/apps/details?id=ai.perplexity.perplexity", IOS: "https://apps.apple.com/app/perplexity-ask-anything/id1668000334", DESKTOP: "https://www.perplexity.ai" },
+                midjourney: { ANDROID: "https://discord.com/invite/midjourney", IOS: "https://discord.com/invite/midjourney", DESKTOP: "https://www.midjourney.com" },
+                copilot: { ANDROID: "https://play.google.com/store/apps/details?id=com.microsoft.copilot", IOS: "https://apps.apple.com/app/microsoft-copilot/id6472612856", DESKTOP: "https://copilot.microsoft.com" },
+                pi: { ANDROID: "https://play.google.com/store/apps/details?id=ai.inflection.pi", IOS: "https://apps.apple.com/app/pi-your-personal-ai/id6445815935", DESKTOP: "https://pi.ai" },
+                poe: { ANDROID: "https://play.google.com/store/apps/details?id=com.poe.android", IOS: "https://apps.apple.com/app/poe-fast-helpful-ai-chat/id1640745955", DESKTOP: "https://poe.com" }
             };
 
-            url = links[aiName][device] || links[aiName]["DESKTOP_STATION"];
-            
-            alert("SYSTEM: Redirecting to " + device + " optimized version...");
-            window.open(url, '_blank');
+            window.open(links[ai][os] || links[ai].DESKTOP, '_blank');
         }
     </script>
 </body>
