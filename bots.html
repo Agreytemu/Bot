@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remori Bots | Neural Hub 3026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --neon-green: #39FF14;
+            --robotic-red: #FF0000;
+            --cyber-blue: #00f3ff;
+            --bg-deep: #020202;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-deep);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #020202 100%);
+            overflow-x: hidden;
+        }
+
+        /* --- UI DECORATION --- */
+        .scanline {
+            width: 100%; height: 2px; background: rgba(57, 255, 20, 0.1);
+            position: fixed; top: 0; z-index: 9999; pointer-events: none;
+            animation: scan 4s linear infinite;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(0,0,0,0.8);
+            border-bottom: 1px solid var(--robotic-red);
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
+        }
+        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 2px; font-size: 1.4rem; }
+        .logo span { color: var(--robotic-red); text-shadow: 0 0 10px var(--robotic-red); }
+
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #888; font-family: 'Orbitron'; font-size: 0.7rem; transition: 0.3s; }
+        .nav-links a.active { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
+
+        /* --- MAIN HUB --- */
+        .hub-container { padding: 40px 5%; margin-top: 20px; }
+        
+        .hub-header { text-align: center; margin-bottom: 60px; }
+        .hub-header h1 { font-family: 'Orbitron'; font-size: 3rem; letter-spacing: 10px; color: var(--pure-white); }
+        .os-detector { 
+            display: inline-block; padding: 5px 15px; background: var(--robotic-red); 
+            font-family: 'Orbitron'; font-size: 0.7rem; margin-top: 10px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+
+        /* --- GRID SYSTEM --- */
+        .grid-title { font-family: 'Orbitron'; color: var(--cyber-blue); margin: 40px 0 20px; border-left: 5px solid var(--cyber-blue); padding-left: 15px; }
+
+        .bot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .bot-card {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+            position: relative;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .bot-card:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.2);
+        }
+
+        .bot-card i { font-size: 3rem; margin-bottom: 20px; color: var(--neon-green); }
+        .bot-card h3 { font-family: 'Orbitron'; margin-bottom: 10px; color: var(--pure-white); }
+        .bot-card p { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.4; }
+
+        .btn-connect {
+            display: inline-block; width: 100%; padding: 12px;
+            background: transparent; border: 1px solid var(--neon-green);
+            color: var(--neon-green); text-align: center; font-family: 'Orbitron';
+            text-decoration: none; font-size: 0.8rem; transition: 0.3s;
+        }
+        .btn-connect:hover { background: var(--neon-green); color: black; font-weight: bold; }
+
+        /* --- AI DOWNLOAD SECTION --- */
+        .ai-card { border-left: 4px solid var(--cyber-blue); }
+        .ai-capability { font-size: 0.7rem; color: var(--cyber-blue); font-family: 'Orbitron'; margin-bottom: 10px; display: block; }
+
+        /* --- FOOTER --- */
+        footer { padding: 50px; text-align: center; border-top: 1px solid #1a1a1a; margin-top: 100px; }
+
+        @media (max-width: 768px) {
+            .hub-header h1 { font-size: 1.8rem; letter-spacing: 5px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanline"></div>
+
+    <nav>
+        <div class="logo">REMORI<span>BOTS</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="bots.html" class="active">NEURAL HUB</a></li>
+            <li><a href="about.html">SYSTEM</a></li>
+            <li><a href="contact.html">UPLINK</a></li>
+        </ul>
+        <div class="os-detector" id="device-info">DETECTING_HARDWARE...</div>
+    </nav>
+
+    <div class="hub-container">
+        
+        <div class="hub-header">
+            <h1>BOT_CENTER</h1>
+            <p style="color: #666;">The global nexus for artificial intelligence and autonomous entities.</p>
+        </div>
+
+        <h2 class="grid-title">REMORI_CORE_ENTITIES</h2>
+        <div class="bot-grid">
+            <div class="bot-card">
+                <i class="fas fa-briefcase"></i>
+                <h3>BUSINESS_MANAGER</h3>
+                <p>Inasimamia mauzo, wateja, na kutoa ripoti za kila siku za biashara yako.</p>
+                <a href="#" class="btn-connect">INITIALIZE_BOT</a>
+            </div>
+            <div class="bot-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>GROUP_DEFENDER</h3>
+                <p>Ulinzi wa hali ya juu dhidi ya spam, virusi, na watu wasiohitajika kwenye magroup.</p>
+                <a href="#" class="btn-connect">INITIALIZE_BOT</a>
+            </div>
+            <div class="bot-card">
+                <i class="fas fa-female"></i>
+                <h3>MADONNA_AI</h3>
+                <p>Social Bot kwa ajili ya burudani, mazungumzo, na ushauri wa kijamii.</p>
+                <a href="#" class="btn-connect">INITIALIZE_BOT</a>
+            </div>
+            <div class="bot-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>EDU_MASTER</h3>
+                <p>Inasaidia kusaka materials, kutoa mitihani, na kufundisha masomo mbalimbali.</p>
+                <a href="#" class="btn-connect">INITIALIZE_BOT</a>
+            </div>
+        </div>
+
+        <h2 class="grid-title">GLOBAL_NEURAL_NETWORKS (AI HUB)</h2>
+        <div class="bot-grid">
+            <div class="bot-card ai-card">
+                <span class="ai-capability">MULTIMODAL_REASONING</span>
+                <i class="fab fa-google" style="color: #4285F4;"></i>
+                <h3>GOOGLE_GEMINI</h3>
+                <p>Inaweza kuchakata picha, video, na maandishi kwa ufasaha wa hali ya juu.</p>
+                <a href="#" onclick="smartDownload('gemini')" class="btn-connect">GET_FOR_YOUR_DEVICE</a>
+            </div>
+            <div class="bot-card ai-card">
+                <span class="ai-capability">NATURAL_LANGUAGE_PRO</span>
+                <i class="fas fa-robot" style="color: #10a37f;"></i>
+                <h3>OPEN_AI_CHATGPT</h3>
+                <p>Mtaalam wa kuandika codes, barua, na kufanya tafiti tata kwa sekunde.</p>
+                <a href="#" onclick="smartDownload('chatgpt')" class="btn-connect">GET_FOR_YOUR_DEVICE</a>
+            </div>
+            <div class="bot-card ai-card">
+                <span class="ai-capability">IMAGE_SYNTHESIS</span>
+                <i class="fas fa-paint-brush" style="color: #ff00f3;"></i>
+                <h3>MS_COPILOT</h3>
+                <p>Inatengeneza picha za kustaajabisha na kusaidia kazi za ofisi (Word/Excel).</p>
+                <a href="#" onclick="smartDownload('copilot')" class="btn-connect">GET_FOR_YOUR_DEVICE</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p style="color: #444; font-family: 'Orbitron'; font-size: 0.7rem;">REMORI_BOTS © 3026 | ARCHITECT: AGREY TEMU</p>
+    </footer>
+
+    <script>
+        // 1. SMART DEVICE DETECTOR
+        function detectDevice() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const display = document.getElementById('device-info');
+            
+            if (/windows phone/i.test(userAgent)) return "WINDOWS_PHONE";
+            if (/android/i.test(userAgent)) return "ANDROID_CORE";
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return "IOS_APPLE";
+            if (/Macintosh|Windows|Linux/.test(userAgent)) return "DESKTOP_STATION";
+            
+            return "UNKNOWN_HARDWARE";
+        }
+        document.getElementById('device-info').innerText = detectDevice();
+
+        // 2. SMART DOWNLOAD SYSTEM (3026 Technology)
+        function smartDownload(aiName) {
+            const device = detectDevice();
+            let url = "";
+
+            const links = {
+                gemini: {
+                    ANDROID_CORE: "https://play.google.com/store/apps/details?id=com.google.android.apps.bard",
+                    IOS_APPLE: "https://apps.apple.com/app/google/id284815942",
+                    DESKTOP_STATION: "https://gemini.google.com"
+                },
+                chatgpt: {
+                    ANDROID_CORE: "https://play.google.com/store/apps/details?id=com.openai.chatgpt",
+                    IOS_APPLE: "https://apps.apple.com/app/chatgpt/id6448311069",
+                    DESKTOP_STATION: "https://chat.openai.com"
+                },
+                copilot: {
+                    ANDROID_CORE: "https://play.google.com/store/apps/details?id=com.microsoft.copilot",
+                    IOS_APPLE: "https://apps.apple.com/app/microsoft-copilot/id6472612856",
+                    DESKTOP_STATION: "https://copilot.microsoft.com"
+                }
+            };
+
+            url = links[aiName][device] || links[aiName]["DESKTOP_STATION"];
+            
+            alert("SYSTEM: Redirecting to " + device + " optimized version...");
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
