@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remori Bots | Uplink Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --neon-green: #39FF14;
+            --robotic-red: #FF0000;
+            --pure-white: #FFFFFF;
+            --gray-mpauko: #1a1a1a;
+            --bg-dark: #050505;
+            --overlay: rgba(0, 0, 0, 0.9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--pure-white);
+            font-family: 'Rajdhani', sans-serif;
+            background-image: linear-gradient(var(--gray-mpauko) 1px, transparent 1px), 
+                              linear-gradient(90deg, var(--gray-mpauko) 1px, transparent 1px);
+            background-size: 50px 50px;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: var(--overlay);
+            border-bottom: 2px solid var(--robotic-red);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; }
+        .logo span { color: var(--robotic-red); }
+
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { text-decoration: none; color: white; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
+        .menu-btn { display: none; font-size: 1.5rem; color: var(--robotic-red); cursor: pointer; }
+
+        /* --- SIDE MENU MOBILE --- */
+        .side-menu {
+            position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+            background: var(--overlay); border-left: 3px solid var(--robotic-red);
+            display: flex; flex-direction: column; padding: 80px 30px;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1100;
+        }
+        .side-menu.active { right: 0; }
+        .side-menu a { color: white; text-decoration: none; font-size: 1.3rem; margin: 15px 0; font-family: 'Orbitron'; }
+        .close-btn { position: absolute; top: 20px; left: 20px; font-size: 2rem; color: var(--robotic-red); cursor: pointer; }
+
+        /* --- CONTACT CONTAINER --- */
+        .contact-container {
+            margin-top: 120px;
+            padding: 0 10%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            padding-bottom: 100px;
+        }
+
+        .contact-info h2, .contact-form h2 {
+            font-family: 'Orbitron';
+            color: var(--neon-green);
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- FORM STYLE --- */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            border: 1px solid var(--gray-mpauko);
+            position: relative;
+        }
+
+        .contact-form::before {
+            content: "SECURE_UPLINK";
+            position: absolute; top: -10px; left: 20px;
+            background: var(--bg-dark); padding: 0 10px;
+            font-size: 12px; color: var(--robotic-red); font-family: 'Orbitron';
+        }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #aaa; }
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            border: 1px solid var(--gray-mpauko);
+            color: var(--pure-white);
+            font-family: 'Rajdhani';
+            font-size: 1.1rem;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: var(--neon-green);
+            outline: none;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+        }
+
+        .send-btn {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 2px solid var(--robotic-red);
+            color: var(--pure-white);
+            font-family: 'Orbitron';
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.4s;
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
+        }
+
+        .send-btn:hover {
+            background: var(--robotic-red);
+            box-shadow: 0 0 20px var(--robotic-red);
+        }
+
+        /* --- INFO CARDS --- */
+        .info-card {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 3px solid var(--robotic-red);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .info-card i { font-size: 1.5rem; color: var(--neon-green); }
+        .info-card div h4 { font-family: 'Orbitron'; font-size: 0.8rem; color: var(--robotic-red); }
+
+        @media (max-width: 900px) {
+            .contact-container { grid-template-columns: 1fr; padding: 0 5%; margin-top: 100px; }
+            .nav-links { display: none; }
+            .menu-btn { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">REMORI<span>BOTS</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="bots.html">Bots Center</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" style="color: var(--neon-green);">Contact</a></li>
+            <li><a href="expected.html">Expected</a></li>
+        </ul>
+        <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars-staggered"></i></div>
+    </nav>
+
+    <div class="side-menu" id="sideMenu">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        <a href="index.html">HOME</a>
+        <a href="bots.html">BOTS CENTER</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+        <a href="expected.html">EXPECTED</a>
+    </div>
+
+    <div class="contact-container">
+        <div class="contact-info">
+            <h2>DIRECT_CHANNELS</h2>
+            <div class="info-card">
+                <i class="fas fa-headset"></i>
+                <div>
+                    <h4>SUPPORT_LINE</h4>
+                    <p>+255 7XX XXX XXX</p>
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fab fa-telegram-plane"></i>
+                <div>
+                    <h4>TELEGRAM_HQ</h4>
+                    <p>@remoribots_official</p>
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-envelope-open-text"></i>
+                <div>
+                    <h4>EMAIL_ENCRYPTED</h4>
+                    <p>admin@remoribots.com</p>
+                </div>
+            </div>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 20px;">
+                Mifumo yetu inafanya kazi saa 24/7. Agrey Temu na timu ya Remori watapokea ujumbe wako mara moja.
+            </p>
+        </div>
+
+        <div class="contact-form">
+            <h2>SEND_MESSAGE</h2>
+            <form id="uplinkForm">
+                <div class="input-group">
+                    <label>IDENTIFIER (Full Name)</label>
+                    <input type="text" placeholder="Ingiza jina lako..." required>
+                </div>
+                <div class="input-group">
+                    <label>UPLINK_TYPE (Email/Phone)</label>
+                    <input type="text" placeholder="Njia ya kukupata..." required>
+                </div>
+                <div class="input-group">
+                    <label>DATA_PACKET (Your Message)</label>
+                    <textarea rows="5" placeholder="Andika ujumbe wako hapa..." required></textarea>
+                </div>
+                <button type="submit" class="send-btn">TRANSMIT DATA</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('active');
+        }
+
+        // Script ya uigizaji wa kutuma data
+        document.getElementById('uplinkForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.send-btn');
+            btn.innerText = "TRANSMITTING...";
+            btn.style.borderColor = "var(--neon-green)";
+            
+            setTimeout(() => {
+                alert("DATA TRANSMITTED SUCCESSFULLY! Remori Systems will respond soon.");
+                btn.innerText = "TRANSMIT DATA";
+                btn.style.borderColor = "var(--robotic-red)";
+                this.reset();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
